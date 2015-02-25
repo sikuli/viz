@@ -6,7 +6,6 @@ Built to help anyone visualize any data in their browser.
 Michael Skirpan
 
 - [x] - Make a repo
-- 
 
 Ian
 
