@@ -5,5 +5,5 @@ Built to help anyone visualize any data in their browser.
 
 Michael
 
-[x] - Make a repo
+- [x] - Make a repo
 
