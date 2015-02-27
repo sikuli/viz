@@ -1,6 +1,12 @@
 # Viz
 Built to help anyone visualize any data in their browser.
 
+## Pattern for contribution
+- Make a branch
+- Choose a task
+- Add it under your name on the master branch
+- Submit a pull request when you're ready to submit the task
+
 ## What we're working on
 
 Michael Skirpan
