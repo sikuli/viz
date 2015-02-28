@@ -15,6 +15,13 @@ gulp.task('scripts', function () {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('eslint', function () {
+  return gulp.src(['app/scripts/**/*'])
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failOnError());
+});
+
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.scss')
     .pipe($.sourcemaps.init())
@@ -120,7 +127,7 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['scripts', 'html', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', ['eslint', 'scripts', 'html', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

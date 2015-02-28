@@ -1,0 +1,11 @@
+{
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "no-console": false
+  }
+}
