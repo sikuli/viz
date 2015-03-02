@@ -11,8 +11,7 @@ gulp.task('scripts', function () {
     .pipe($.if('*.jsx', $.react({harmony: true})))
     .pipe($.if('*.js', $.babel()))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/scripts'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest('.tmp/scripts'));
 });
 
 gulp.task('eslint', function () {
@@ -34,8 +33,7 @@ gulp.task('styles', function () {
       require('autoprefixer-core')({browsers: ['last 1 version']})
     ]))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/styles'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest('.tmp/styles'));
 });
 
 gulp.task('html', ['styles', 'scripts'], function () {
