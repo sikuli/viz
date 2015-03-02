@@ -2,6 +2,17 @@
 
 Built to help anyone visualize any data in their browser.
 
+## Installation
+
+1. Git it
+  - `git clone https://github.com/sikuli/viz viz && cd $_`
+1. Install dependencies
+  - `npm install -g bower gulp && npm install && bower install`
+1. Run the tests
+  - `gulp test`
+1. Run the server
+  - `gulp serve`
+
 ## Pattern for contribution
 
 - Make a branch
