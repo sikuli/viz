@@ -6,17 +6,17 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 gulp.task('scripts', function () {
-  return gulp.src('app/scripts/**/*')
+  return gulp.src('app/scripts/**/*.js{,x}')
     .pipe($.sourcemaps.init())
-    .pipe($.babel())
-    .pipe($.concat('all.js'))
+    .pipe($.if('*.jsx', $.react({harmony: true})))
+    .pipe($.if('*.js', $.babel()))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe(reload({stream: true}));
 });
 
 gulp.task('eslint', function () {
-  return gulp.src(['app/scripts/**/*'])
+  return gulp.src('app/scripts/**/*')
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.eslint.failOnError());
@@ -39,12 +39,12 @@ gulp.task('styles', function () {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('html', ['styles'], function () {
+gulp.task('html', ['styles', 'scripts'], function () {
   var assets = $.useref.assets({searchPath: ['.tmp', '.']});
 
   return gulp.src('app/*.html')
     .pipe(assets)
-    .pipe($.if('*.js{,x}', $.uglify()))
+    .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.csso()))
     .pipe(assets.restore())
     .pipe($.useref())
@@ -98,12 +98,12 @@ gulp.task('serve', ['scripts', 'styles', 'fonts'], function () {
   // watch for changes
   gulp.watch([
     'app/*.html',
-    'app/scripts/**/*',
     'app/images/**/*',
+    'app/scripts/**/*.{js,jsx}',
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch('app/scripts/**/*', ['scripts']);
+  gulp.watch('app/scripts/**/*.js{,x}', ['scripts']);
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
