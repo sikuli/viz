@@ -127,6 +127,11 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
+gulp.task('test', function () {
+  return gulp.src('test/spec/**/*.js', {read: false})
+    .pipe($.mocha({ui: 'bdd'}));
+});
+
 gulp.task('build', ['eslint', 'scripts', 'html', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });

@@ -8,4 +8,7 @@ install:
   - npm install -g bower gulp
   - npm install && bower install
 
-script: gulp eslint
+notifications:
+  email: false
+
+script: gulp test
