@@ -18,8 +18,7 @@ gulp.task('scripts', function () {
 gulp.task('eslint', function () {
   return gulp.src('app/scripts/**/*')
     .pipe($.eslint())
-    .pipe($.eslint.format())
-    .pipe($.eslint.failOnError());
+    .pipe($.eslint.format());
 });
 
 gulp.task('styles', function () {
@@ -84,6 +83,8 @@ gulp.task('extras', function () {
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', ['scripts', 'styles', 'fonts'], function () {
+  var tests = ['mocha', 'eslint'];
+
   browserSync({
     notify: false,
     port: 9000,
@@ -103,10 +104,11 @@ gulp.task('serve', ['scripts', 'styles', 'fonts'], function () {
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch('app/scripts/**/*.js{,x}', ['scripts']);
-  gulp.watch('app/styles/**/*.scss', ['styles']);
-  gulp.watch('app/fonts/**/*', ['fonts']);
-  gulp.watch('bower.json', ['wiredep', 'fonts']);
+  gulp.watch('app/scripts/**/*.js{,x}', ['scripts'].concat(tests));
+  gulp.watch('app/styles/**/*.scss', ['styles'].concat(tests));
+  gulp.watch('app/fonts/**/*', ['fonts'].concat(tests));
+  gulp.watch('tests/spec/**/*.js', ['mocha'].concat(tests));
+  gulp.watch('bower.json', ['wiredep', 'fonts'].concat(tests));
 });
 
 // inject bower components
@@ -127,9 +129,13 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('test', function () {
+gulp.task('mocha', function () {
   return gulp.src('test/spec/**/*.js', {read: false})
     .pipe($.mocha({ui: 'bdd'}));
+});
+
+gulp.task('test', ['eslint'],function () {
+  gulp.start('mocha');
 });
 
 gulp.task('build', ['eslint', 'scripts', 'html', 'images', 'fonts', 'extras'], function () {
