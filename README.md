@@ -4,6 +4,8 @@ Built to help anyone visualize any data in their browser.
 
 ## Installation
 
+1. Install iojs or node >= 0.12
+  - I suggest using [nvm](https://github.com/creationix/nvm) for this
 1. Git it
   - `git clone https://github.com/sikuli/viz viz && cd $_`
 1. Install dependencies
