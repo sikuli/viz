@@ -123,12 +123,12 @@ gulp.task('wiredep', function () {
     }))
     .pipe(gulp.dest('app/styles'));
 
-  gulp.src('app/*.jade')
+  gulp.src('app/views/boilerplate/scripts.jade')
     .pipe(wiredep({
       exclude: ['bootstrap-sass-official'],
       ignorePath: /^(\.\.\/)*\.\./
     }))
-    .pipe(gulp.dest('app'));
+    .pipe(gulp.dest('app/views/boilerplate'));
 });
 
 gulp.task('mocha', function () {
