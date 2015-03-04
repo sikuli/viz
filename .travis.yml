@@ -4,8 +4,10 @@ node_js:
   - 0.10
 
 install:
+  - npm install -g npm@next
   - npm install -g bower gulp
-  - npm install && bower install
+  - npm install
+  - bower install
 
 notifications:
   email: false
