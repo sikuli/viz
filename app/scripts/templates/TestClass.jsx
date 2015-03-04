@@ -10,5 +10,5 @@ var TestClass = React.createClass({
 
 React.render(
   <TestClass />,
-  document.getElementById("content")
+  document.getElementById("test-class")
 );

@@ -36,10 +36,10 @@ gulp.task('styles', function () {
     .pipe(gulp.dest('.tmp/styles'));
 });
 
-gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('html', ['styles', 'views', 'scripts'], function () {
   var assets = $.useref.assets({searchPath: ['.tmp', '.']});
 
-  return gulp.src('app/*.html')
+  return gulp.src('.tmp/*.html')
     .pipe(assets)
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.csso()))
@@ -61,6 +61,12 @@ gulp.task('images', function () {
     .pipe(gulp.dest('dist/images'));
 });
 
+gulp.task('views', function () {
+  return gulp.src('app/*.jade')
+    .pipe($.jade({pretty: true}))
+    .pipe(gulp.dest('.tmp'));
+});
+
 gulp.task('fonts', function () {
   return gulp.src(require('main-bower-files')({
     filter: '**/*.{eot,svg,ttf,woff,woff2}'
@@ -72,7 +78,8 @@ gulp.task('fonts', function () {
 gulp.task('extras', function () {
   return gulp.src([
     'app/*.*',
-    '!app/*.html'
+    '!app/*.html',
+    '!app/*.jade'
   ], {
     dot: true
   }).pipe(gulp.dest('dist'));
@@ -80,7 +87,7 @@ gulp.task('extras', function () {
 
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['scripts', 'styles', 'fonts'], function () {
+gulp.task('serve', ['scripts', 'views', 'styles', 'fonts'], function () {
   var tests = ['mocha', 'eslint'];
 
   browserSync({
@@ -94,14 +101,11 @@ gulp.task('serve', ['scripts', 'styles', 'fonts'], function () {
     }
   });
 
-  // watch for changes
-  gulp.watch([
-    'app/*.html',
-    'app/images/**/*',
-    'app/scripts/**/*.{js,jsx}',
-    '.tmp/fonts/**/*'
-  ]).on('change', reload);
+  // reload browser when changes are detected
+  gulp.watch('.tmp/**/*').on('change', reload);
 
+  // run tasks when changes are detected
+  gulp.watch('app/**/*.jade', ['views'].concat(tests));
   gulp.watch('app/scripts/**/*.js{,x}', ['scripts'].concat(tests));
   gulp.watch('app/styles/**/*.scss', ['styles'].concat(tests));
   gulp.watch('app/fonts/**/*', ['fonts'].concat(tests));
@@ -119,12 +123,12 @@ gulp.task('wiredep', function () {
     }))
     .pipe(gulp.dest('app/styles'));
 
-  gulp.src('app/*.html')
+  gulp.src('app/views/boilerplate/scripts.jade')
     .pipe(wiredep({
       exclude: ['bootstrap-sass-official'],
       ignorePath: /^(\.\.\/)*\.\./
     }))
-    .pipe(gulp.dest('app'));
+    .pipe(gulp.dest('app/views/boilerplate'));
 });
 
 gulp.task('mocha', function () {
