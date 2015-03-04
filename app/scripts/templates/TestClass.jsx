@@ -8,7 +8,7 @@ var TestClass = React.createClass({
   }
 });
 
-React.render(
-  <TestClass />,
-  document.getElementById("test-class")
-);
+// React.render(
+//   <TestClass />,
+//   document.getElementById("test-class")
+// );
