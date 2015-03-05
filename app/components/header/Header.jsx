@@ -4,7 +4,4 @@ class Header extends React.Component {
   }
 }
 
-React.render(
-  <Header />,
-  document.getElementById("test-class")
-);
+module.exports = Header;

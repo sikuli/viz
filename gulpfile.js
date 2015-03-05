@@ -4,12 +4,15 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
 gulp.task('scripts', function () {
-  return gulp.src('app/**/*.js{,x}')
-    .pipe($.sourcemaps.init())
-    .pipe($.babel())
-    .pipe($.sourcemaps.write())
+  return browserify('./app/index.jsx')
+    .transform(babelify)
+    .bundle()
+    .pipe(source('index.js'))
     .pipe(gulp.dest('.tmp'));
 });
 
