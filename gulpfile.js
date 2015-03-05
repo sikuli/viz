@@ -6,12 +6,11 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 gulp.task('scripts', function () {
-  return gulp.src('app/components/**/*.js{,x}')
+  return gulp.src('app/**/*.js{,x}')
     .pipe($.sourcemaps.init())
-    .pipe($.if('*.jsx', $.react({harmony: true})))
-    .pipe($.if('*.js', $.babel()))
+    .pipe($.babel())
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/components'));
+    .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('eslint', function () {
