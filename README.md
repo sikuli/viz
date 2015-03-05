@@ -4,8 +4,6 @@ Built to help anyone visualize any data in their browser.
 
 ## Installation
 
-1. Install iojs or node >= 0.12
-  - I suggest using [nvm](https://github.com/creationix/nvm) for this
 1. Git it
   - `git clone https://github.com/sikuli/viz viz && cd $_`
 1. Install dependencies
@@ -24,7 +22,7 @@ Built to help anyone visualize any data in their browser.
 
 ## General Information
 
-- [Adding a react component](doc/adding-a-react-component.md)
+- [Component structure](doc/component-structure.md)
 
 ## What we're working on
 
