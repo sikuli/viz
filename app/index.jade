@@ -2,13 +2,16 @@ doctype html.no-js(lang='')
 
 head
     title viz
-    include ./views/boilerplate/head.jade
+    include ./boilerplate/head.jade
 
   body
-    include ./views/boilerplate/browsehappy.jade
+    include ./boilerplate/browsehappy.jade
 
     .container
-      include ./views/layouts/nav.jade
-      include ./views/layouts/footer.jade
+      include ./components/header/header.jade
+      include ./components/data-viewer/data-viewer.jade
+      include ./components/template-viewer/template-viewer.jade
+      include ./components/visualizer/visualizer.jade
+      include ./components/footer/footer.jade
 
-    include ./views/boilerplate/scripts.jade
+    include ./boilerplate/scripts.jade

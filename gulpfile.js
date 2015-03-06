@@ -4,24 +4,26 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
 gulp.task('scripts', function () {
-  return gulp.src('app/scripts/**/*.js{,x}')
-    .pipe($.sourcemaps.init())
-    .pipe($.if('*.jsx', $.react({harmony: true})))
-    .pipe($.if('*.js', $.babel()))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/scripts'));
+  return browserify('./app/index.jsx')
+    .transform(babelify)
+    .bundle()
+    .pipe(source('index.js'))
+    .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('eslint', function () {
-  return gulp.src('app/scripts/**/*')
+  return gulp.src('app/**/*.js{,x}')
     .pipe($.eslint())
     .pipe($.eslint.format());
 });
 
 gulp.task('styles', function () {
-  return gulp.src('app/styles/main.scss')
+  return gulp.src('app/index.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       outputStyle: 'nested', // libsass doesn't support expanded yet
@@ -33,7 +35,7 @@ gulp.task('styles', function () {
       require('autoprefixer-core')({browsers: ['last 1 version']})
     ]))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/styles'));
+    .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('html', ['styles', 'views', 'scripts'], function () {
@@ -62,7 +64,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('views', function () {
-  return gulp.src('app/*.jade')
+  return gulp.src('app/index.jade')
     .pipe($.jade({pretty: true}))
     .pipe(gulp.dest('.tmp'));
 });
@@ -106,8 +108,8 @@ gulp.task('serve', ['scripts', 'views', 'styles', 'fonts'], function () {
 
   // run tasks when changes are detected
   gulp.watch('app/**/*.jade', ['views'].concat(tests));
-  gulp.watch('app/scripts/**/*.js{,x}', ['scripts'].concat(tests));
-  gulp.watch('app/styles/**/*.scss', ['styles'].concat(tests));
+  gulp.watch('app/**/*.js{,x}', ['scripts'].concat(tests));
+  gulp.watch('app/**/*.scss', ['styles'].concat(tests));
   gulp.watch('app/fonts/**/*', ['fonts'].concat(tests));
   gulp.watch('tests/spec/**/*.js', ['mocha'].concat(tests));
   gulp.watch('bower.json', ['wiredep', 'fonts'].concat(tests));
@@ -117,18 +119,18 @@ gulp.task('serve', ['scripts', 'views', 'styles', 'fonts'], function () {
 gulp.task('wiredep', function () {
   var wiredep = require('wiredep').stream;
 
-  gulp.src('app/styles/*.scss')
+  gulp.src('app/**/*.scss')
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)+/
     }))
-    .pipe(gulp.dest('app/styles'));
+    .pipe(gulp.dest('app'));
 
-  gulp.src('app/views/boilerplate/scripts.jade')
+  gulp.src('app/boilerplate/scripts.jade')
     .pipe(wiredep({
       exclude: ['bootstrap-sass-official'],
       ignorePath: /^(\.\.\/)*\.\./
     }))
-    .pipe(gulp.dest('app/views/boilerplate'));
+    .pipe(gulp.dest('app/boilerplate'));
 });
 
 gulp.task('mocha', function () {
