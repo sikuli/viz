@@ -8,10 +8,13 @@ head
     include ./boilerplate/browsehappy.jade
 
     .container
-      include ./components/header/header.jade
-      include ./components/data-viewer/data-viewer.jade
-      include ./components/template-viewer/template-viewer.jade
-      include ./components/visualizer/visualizer.jade
-      include ./components/footer/footer.jade
+      .row
+        include ./components/header/header.jade
+      .row
+        include ./components/data-viewer/data-viewer.jade
+        include ./components/visualizer/visualizer.jade
+        include ./components/template-viewer/template-viewer.jade
+      .row
+        include ./components/footer/footer.jade
 
     include ./boilerplate/scripts.jade
