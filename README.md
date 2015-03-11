@@ -32,7 +32,7 @@ Ian
 
 Michael Aaron
 
-- [ ] Create main container for viz
+- [x] Create main container for viz
 - [ ] Create a nav bar
 
 Peyman
