@@ -1,6 +1,6 @@
 class Header extends React.Component {
   render() {
-    return (<div className="testClass">Viz</div>);
+    return (<div class="header"></div>);
   }
 }
 
