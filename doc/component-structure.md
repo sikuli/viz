@@ -17,7 +17,7 @@ code, and it minimizes the mental burden of building a component.
   │   ├── Component.jsx (optional)
   │   ├── component.jade
   │   ├── component.js (optional)
-  │   └── component.scss (optional)
+  │   └── component.sass (optional)
 ```
 
 There can and often should be sub-components within your components.
@@ -49,5 +49,5 @@ code like so:
   import MyComponent from "./components/my-component/MyComponent";
   ```
 
-1. Edit [../app/index.scss](../app/index.scss) and add a line to include your
-`*.scss` files.
+1. Edit [../app/index.sass](../app/index.sass) and add a line to include your
+`*.sass` files.

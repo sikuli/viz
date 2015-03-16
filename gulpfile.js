@@ -23,12 +23,13 @@ gulp.task('eslint', function () {
 });
 
 gulp.task('styles', function () {
-  return gulp.src('app/index.scss')
+  return gulp.src('app/index.sass')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       outputStyle: 'nested', // libsass doesn't support expanded yet
       precision: 10,
       includePaths: ['.'],
+      indentedSyntax: true,
       onError: console.error.bind(console, 'Sass error:')
     }))
     .pipe($.postcss([
@@ -111,7 +112,7 @@ gulp.task('serve', ['scripts', 'views', 'styles', 'fonts'], function () {
   // run tasks when changes are detected
   gulp.watch('app/**/*.jade', ['views'].concat(tests));
   gulp.watch('app/**/*.js{,x}', ['scripts'].concat(tests));
-  gulp.watch('app/**/*.scss', ['styles'].concat(tests));
+  gulp.watch('app/**/*.sass', ['styles'].concat(tests));
   gulp.watch('app/fonts/**/*', ['fonts'].concat(tests));
   gulp.watch('tests/spec/**/*.js', ['mocha'].concat(tests));
   gulp.watch('bower.json', ['wiredep', 'fonts'].concat(tests));
@@ -121,7 +122,7 @@ gulp.task('serve', ['scripts', 'views', 'styles', 'fonts'], function () {
 gulp.task('wiredep', function () {
   var wiredep = require('wiredep').stream;
 
-  gulp.src('app/**/*.scss')
+  gulp.src('app/**/*.sass')
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)+/
     }))
