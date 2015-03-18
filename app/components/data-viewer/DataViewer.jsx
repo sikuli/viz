@@ -12,7 +12,7 @@ module.exports = DataViewer;
 var FieldsListView = React.createClass({
 
    render: function(){
-      var header = <h6 className="detailHeader">1,500 objects</h6>
+      var header = <h6 className="detail-header">1,500 objects</h6>
       
       return <div>
                {header}
