@@ -8,12 +8,10 @@ class DataViewer extends React.Component {
 
 module.exports = DataViewer;
 
-
 var FieldsListView = React.createClass({
 
-   render: function(){
-      var header = <h6 className="detail-header">1,500 objects</h6>
-      
+   render: function() {
+      var header = (<h6 className="detail-header">1,500 objects</h6>);
       return <div>
                {header}
                <FieldItem />
