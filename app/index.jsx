@@ -9,23 +9,18 @@ $('.collapser').on('click', function() {
   var templateV = $('#template-viewer');
   var visualizerW = $("#visualizer");
   console.log(dataP.css("visibility") == "collapse");
-  if (dataP.css("visibility") == "collapse" && templateV.css("visibility") == "collapse") {
-        visualizerW.switchClass("col-md-12", "col-md-8" , 500, 'swing', function () { 
-            dataP.animate({ opacity: "1.0" }, 500, function () {
-                dataP.css("visibility", "visible").css("display", "block");
-            });
-            templateV.animate({ opacity: "1.0" }, 500, function () {
-                templateV.css("visibility", "visible").css("display", "block");
-            });
-        });
-    } else {
-        setTimeout( function () { visualizerW.switchClass("col-md-8", "col-md-12" , 500) }, 1000);
-        dataP.animate({ opacity: "0.0" }, 500, function () {
-            dataP.css("visibility", "collapse").css("display", "none");
-        });
-        templateV.animate({ opacity: "0.0" }, 500, function () {
-            templateV.css("visibility", "collapse").css("display", "none");
-        });
-  }
+  
+  if (dataP.css("display") == "none" && templateV.css("display") == "none") {
+    visualizerW.animate({width: "60%"}, function () {
+      dataP.animate( {"margin-right": "0px" }, 500 ).css("visibility", "visible").css( "display", "block");
+      templateV.animate( {"margin-left": "0px"}, 500 ).css("visibility", "visible").css( "display", "block");
+    });
+  } else {
+    visualizerW.animate({width: "100%"}, function () {
+      dataP.animate( {"margin-right": "-500px" }, 500 ).css("visibility", "collapsed").css( "display", "none");
+      templateV.animate( {"margin-left": "-500px"}, 500 ).css("visibility", "collapsed").css( "display", "none");
+    });
+  };
+
 });
 
