@@ -1,6 +1,6 @@
 class Header extends React.Component {
   render() {
-    return (<div class="header"></div>);
+    return (<div className="header"></div>);
   }
 }
 
