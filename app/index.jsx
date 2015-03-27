@@ -8,7 +8,7 @@ $('#collapseButton').on('click', function() {
   var dataP = $('#data-viewer');
   var templateV = $('#template-viewer');
   var visualizerW = $("#visualizer");
-  var animationDuration = 500;
+  var animationDuration = 400;
   var animationEasing = "swing";
 
   var setCollapse = function(element, shouldCollapse){
