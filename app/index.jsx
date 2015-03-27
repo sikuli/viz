@@ -25,12 +25,14 @@ $('#collapseButton').on('click', function() {
     dataP.animate({ "width": "20%"}, animationDuration, animationEasing, setCollapse(dataP, false));
     templateV.animate({ width: "20%"}, animationDuration, animationEasing, setCollapse(templateV, false));
     visualizerW.animate({width: "60%"});
+    $("#collapseButton").text("Collapse");
 
     } else {
 
     dataP.animate({ width: "0%"}, animationDuration, animationEasing, setCollapse(dataP, true));
     templateV.animate({ width: "0%"}, animationDuration, animationEasing, setCollapse(templateV, true));
     visualizerW.animate({width: "100%"});
+    $("#collapseButton").text("Expand");
   }
 
 });
