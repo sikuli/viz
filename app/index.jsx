@@ -13,14 +13,14 @@ $('#collapseButton').on('click', function() {
 
   var setCollapse = function(element, shouldCollapse){
     if(shouldCollapse){
-      element.addClass("CX");
+      element.addClass("panel-collapsed");
     }
     else{
-      element.removeClass("CX");
+      element.removeClass("panel-collapsed");
     }
   };
 
-  if (dataP.hasClass("CX") && templateV.hasClass("CX")) {
+  if (dataP.hasClass("panel-collapsed") && templateV.hasClass("panel-collapsed")) {
 
     dataP.animate({ "width": "20%"}, animationDuration, animationEasing, setCollapse(dataP, false));
     templateV.animate({ width: "20%"}, animationDuration, animationEasing, setCollapse(templateV, false));
@@ -32,5 +32,6 @@ $('#collapseButton').on('click', function() {
     templateV.animate({ width: "0%"}, animationDuration, animationEasing, setCollapse(templateV, true));
     visualizerW.animate({width: "100%"});
   }
+
 });
 
