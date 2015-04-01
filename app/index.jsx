@@ -4,8 +4,8 @@ import DataViewer from "./components/data-viewer/DataViewer.jsx";
 import TemplateViewer from "./components/template-viewer/TemplateViewer.jsx";
 import Visualizer from "./components/visualizer/Visualizer.jsx";
 
-$('#collapseButton').on('click', function() {
-  var dataP = $('#data-viewer');
+$("#collapseButton").on("click", function() {
+  var dataP = $("#data-viewer");
   var templateV = $('#template-viewer');
   var visualizerW = $("#visualizer");
   var animationDuration = 400;
