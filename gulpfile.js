@@ -106,6 +106,8 @@ gulp.task('serve', ['scripts', 'views', 'styles', 'fonts'], function () {
 
   // reload browser when changes are detected
   gulp.watch('.tmp/**/*').on('change', reload);
+  gulp.watch('.tmp/**/*').on('added', reload);
+  gulp.watch('.tmp/**/*').on('deleted', reload);
 
   // run tasks when changes are detected
   gulp.watch('app/**/*.jade', ['views'].concat(tests));

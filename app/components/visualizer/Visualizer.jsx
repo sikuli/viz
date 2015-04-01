@@ -1,6 +1,6 @@
 class Visualizer extends React.Component {
   render() {
-    return (<div class="visualizer"></div>);
+    return (<div className="visualizer"></div>);
   }
 }
 

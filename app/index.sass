@@ -1,13 +1,19 @@
+
 $icon-font-path: '../fonts/'
 
 // bower:scss
-@import bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss
+@import 'bower_components/bootswatch-scss/flatly/_variables.scss'
+@import 'bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss'
+@import 'bower_components/bootswatch-scss/flatly/_bootswatch.scss'
 // endbower
 
 @import components/header/header.sass
 @import components/footer/footer.sass
+
+@import components/template-viewer/template-viewer.sass
 @import components/data-viewer/data-viewer.sass
 @import components/visualizer/visualizer.sass
+
 
 .browserupgrade
   margin: 0.2em 0
@@ -27,3 +33,21 @@ body
 @media screen and (min-width: 768px)
   .container
     max-width: 730px
+
+.main
+  display: flex
+  display: -webkit-flex
+  height: 100%
+  width: 100%
+  #data-viewer
+    width: 20%
+    margin: 5px
+
+  #template-viewer
+    width: 20%
+    margin: 5px
+  #visualizer
+    width: 60%
+    margin: 5px
+
+
