@@ -1,4 +1,4 @@
-import TemplateItem from "./TemplateItem.jsx";
+import TemplateItem from "./template-item/TemplateItem.jsx";
 
 class TemplateViewer extends React.Component {
 
