@@ -4,6 +4,7 @@
   "dependencies": {
     "modernizr": "~2.8.1",
     "react": "~0.13.0",
-    "bootswatch-scss": "~3.2.0"
+    "bootswatch-scss": "~3.2.0",
+    "jquery": "~2.1.3"
   }
 }
