@@ -1,5 +1,6 @@
-import FieldItem from "./FieldItem.jsx";
-
+// sub-component imports
+import FieldItem from "./field-item/FieldItem.jsx";
+// end sub-component imports
 class DataViewer extends React.Component {
   render() {
     return (<div className="data-viewer"></div>);
