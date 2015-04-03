@@ -22,14 +22,14 @@ $("#collapseButton").on("click", function() {
 
   if (dataP.hasClass("panel-collapsed") && templateV.hasClass("panel-collapsed")) {
 
-    dataP.animate({ "width": "20%"}, animationDuration, animationEasing, setCollapse(dataP, false));
-    templateV.animate({ width: "20%"}, animationDuration, animationEasing, setCollapse(templateV, false));
+    dataP.animate({ "width": "20%", opacity: "1.0"}, animationDuration, animationEasing, setCollapse(dataP, false));
+    templateV.animate({ width: "20%", opacity: "1.0"}, animationDuration, animationEasing, setCollapse(templateV, false));
     visualizerW.animate({width: "60%"});
 
     } else {
 
-    dataP.animate({ width: "0%"}, animationDuration, animationEasing, setCollapse(dataP, true));
-    templateV.animate({ width: "0%"}, animationDuration, animationEasing, setCollapse(templateV, true));
+    dataP.animate({ width: "0%", opacity: "0.0"}, animationDuration, animationEasing, setCollapse(dataP, true));
+    templateV.animate({ width: "0%", opacity: "0.0"}, animationDuration, animationEasing, setCollapse(templateV, true));
     visualizerW.animate({width: "100%"});
   }
 
