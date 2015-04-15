@@ -1,37 +1,36 @@
-import D3Chart from "./D3Chart.js"
+import DynamicPieChart from "./DynamicPieChart.js"
 
 class Chart extends React.Component {
   componentDidMount() {
     let el = React.findDOMNode(this);
-    this.chart = new D3Chart(el, {
-      width: "100%",
-      height: "300px"
-    }, this.getChartState());
+
+    $.getJSON("http://localhost:6969/deptGrades.json", (data) => {
+      this.chart = new DynamicPieChart({
+        id: "_id",
+        data: data,
+        element: "#main-viz",
+        height: 512,
+        width: 1024,
+        fields: [
+          "PCT_A",
+          "PCT_B",
+          "PCT_C",
+          "PCT_D",
+          "PCT_F"
+        ],
+        label: function(d) { return d.label.replace("PCT_", ""); },
+        accessors: {
+          label: function(d) { return d.data.label; }
+        }
+      });
+
+      this.chart.plot();
+    });
   }
 
-  componentDidUpdate() {
-    let el = React.findDOMNode(this);
-    this.chart.update(el, this.getChartState());
-  }
+  componentDidUpdate() {}
 
-  getChartState() {
-    var sampleData = [
-      {id: "5fbmzmtc", x: 7, y: 41, z: 6},
-      {id: "s4f8phwm", x: 11, y: 45, z: 9}
-    ];
-
-    var sDomain = {x: [0, 30], y: [0, 100]};
-
-    return {
-      data: sampleData,
-      domain: sDomain
-    };
-  }
-
-  componentWillUnmount() {
-    let el = React.findDOMNode(this);
-    this.chart.destroy(el);
-  }
+  componentWillUnmount() {}
 
   render() {
     return (
@@ -41,8 +40,8 @@ class Chart extends React.Component {
 }
 
 Chart.propTypes = {
-  data: React.PropTypes.array,
-  domain: React.PropTypes.object
+  // data: React.PropTypes.array,
+  // domain: React.PropTypes.object
 };
 
 module.exports = Chart;
