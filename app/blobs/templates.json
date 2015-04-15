@@ -1,0 +1,18 @@
+[
+    { 
+        "imageURL": "images/barchart.png",
+        "templateName" : "Bar Chart",
+        "data" : {},
+        "dims" : 2,
+        "id" : 1
+
+    },
+    { 
+        "imageURL" : "images/linegraph.png",
+        "templateName" : "Line Graph",
+        "data" : {},
+        "dims" : 2,
+        "id" : 2
+
+    }
+]

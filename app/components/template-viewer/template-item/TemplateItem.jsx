@@ -1,15 +1,15 @@
-var TemplateItem = React.createClass({
+class TemplateItem extends React.Component{
 
-    render: function() {
+    render() {
       return <div className="template-item col-md-10 col-md-offset-1">
         <div className="thumb-container">
-          <img className="thumb-image" src="images/barchart.png"/>
+          <img className="thumb-image" src={this.props.img}/>
         </div>
-        <p className="details-container">Bar Chart
-          <span className="dims">(2 dims)</span>
+        <p className="details-container">{this.props.name}
+          <span className="dims">({this.props.dims} dims)</span>
         </p>
             </div>;
         }
-});
+}
 
 module.exports = TemplateItem;
