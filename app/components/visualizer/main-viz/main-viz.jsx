@@ -1,3 +1,3 @@
-import Chart from "./templates/Chart.jsx"
+import DonutChartComponent from "./templates/DonutChart/DonutChartComponent.jsx";
 
-React.render(<Chart />, document.getElementById("main-viz"));
+React.render(<DonutChartComponent />, document.getElementById("main-viz"));

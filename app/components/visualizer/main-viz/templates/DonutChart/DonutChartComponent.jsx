@@ -1,6 +1,6 @@
 import DonutChart from "./DonutChart.js";
 
-class Chart extends React.Component {
+class DonutChartComponent extends React.Component {
   componentDidMount() {
     $.getJSON("blobs/deptGrades.json")
       .done((data) => {
@@ -37,4 +37,4 @@ class Chart extends React.Component {
   }
 }
 
-module.exports = Chart;
+module.exports = DonutChartComponent;
