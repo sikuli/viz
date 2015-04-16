@@ -13,11 +13,9 @@ module.exports = TemplateViewer;
 
 class TemplateList extends React.Component {
 
-
     constructor() {
         this.state = {templates: []}
-        console.log("in constructor");
-        $.getJSON("http://localhost:9000/blobs/templates.json", function (data) {
+        $.getJSON("blobs/templates.json", (data)=> {
             this.setState({templates: data});
         }.bind(this)).fail(function (error) {
             console.log(error);
@@ -25,7 +23,6 @@ class TemplateList extends React.Component {
     }
 
     passData(index) {
-        console.log(this);
         console.log(this.state.templates[index].data);
 
     }

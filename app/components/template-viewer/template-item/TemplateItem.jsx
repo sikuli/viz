@@ -1,16 +1,4 @@
 class TemplateItem extends React.Component{
-    // componentWillMount() {
-    //   var idval = "temp-" + this.props.select;
-    //   $("#"+idval).click(function () {
-    //     handleClick(this.props.data);
-    //   });
-
-    // }
-
-
-    // handleClick(data) {
-    //   console.log(data);
-    // }
 
     render() {
       console.log(this.props)
