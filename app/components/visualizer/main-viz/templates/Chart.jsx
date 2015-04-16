@@ -2,35 +2,33 @@ import DonutChart from "./DonutChart.js";
 
 class Chart extends React.Component {
   componentDidMount() {
-    let el = React.findDOMNode(this);
+    $.getJSON("blobs/deptGrades.json")
+      .done((data) => {
+        this.chart = new DonutChart({
+          id: "_id",
+          data: data,
+          element: "#main-viz",
+          height: 512,
+          width: 1024,
+          fields: [
+            "PCT_A",
+            "PCT_B",
+            "PCT_C",
+            "PCT_D",
+            "PCT_F"
+          ],
+          label: (d) => { return d.label.replace("PCT_", ""); },
+          accessors: {
+            label: (d) => { return d.data.label; }
+          }
+        });
 
-    $.getJSON("blobs/deptGrades.json", (data) => {
-      this.chart = new DonutChart({
-        id: "_id",
-        data: data,
-        element: "#main-viz",
-        height: 512,
-        width: 1024,
-        fields: [
-          "PCT_A",
-          "PCT_B",
-          "PCT_C",
-          "PCT_D",
-          "PCT_F"
-        ],
-        label: function(d) { return d.label.replace("PCT_", ""); },
-        accessors: {
-          label: function(d) { return d.data.label; }
-        }
+        this.chart.plot();
+      })
+      .fail((jqxhr, textStatus, error) => {
+        console.error(error);
       });
-
-      this.chart.plot();
-    });
   }
-
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
 
   render() {
     return (
