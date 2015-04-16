@@ -24,21 +24,23 @@ class TemplateList extends React.Component {
         }.bind(this));
     }
 
+    passData(index) {
+        console.log(this);
+        console.log(this.state.templates[index].data);
+
+    }
+
     render() {
         var head = (<h3 className="template-head col-md-8 col-md-offset-4">Templates</h3>);
-        if (_.isNull(this.state.templates)) {
-            return (<div> <p>Waiting</p></div>);
-        } else {
-
         return (<div>
                     {head}
-                    { _.map(this.state.templates, function (temp) {
-                        return <TemplateItem key={temp.id} img={temp.imageURL} dims={temp.dims} name={temp.templateName} data={temp.data} />;
-                        })
+                    { _.map(this.state.templates, function (temp, i) {
+                        var dataSend = this.passData.bind(this,i);
+                        return <TemplateItem key={temp.id} onClick={dataSend} select={temp.id} img={temp.imageURL} dims={temp.dims} name={temp.templateName} data={temp.data} />;
+                        }.bind(this))
                     }
                 </div>
-                );
-        }
+            );
     }
 }
 

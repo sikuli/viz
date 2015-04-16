@@ -1,7 +1,20 @@
 class TemplateItem extends React.Component{
+    // componentWillMount() {
+    //   var idval = "temp-" + this.props.select;
+    //   $("#"+idval).click(function () {
+    //     handleClick(this.props.data);
+    //   });
+
+    // }
+
+
+    // handleClick(data) {
+    //   console.log(data);
+    // }
 
     render() {
-      return <div className="template-item col-md-10 col-md-offset-1">
+      console.log(this.props)
+      return <div className="template-item col-md-10 col-md-offset-1" onClick={this.props.onClick} >
         <div className="thumb-container">
           <img className="thumb-image" src={this.props.img}/>
         </div>
