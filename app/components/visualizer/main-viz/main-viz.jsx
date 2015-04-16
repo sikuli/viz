@@ -1,3 +1,3 @@
-import Chart from "./templates/chart.jsx"
+import Chart from "./templates/Chart.jsx"
 
 React.render(<Chart />, document.getElementById("main-viz"));
