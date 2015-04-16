@@ -1,11 +1,11 @@
-import DynamicPieChart from "./DynamicPieChart.js";
+import DonutChart from "./DonutChart.js";
 
 class Chart extends React.Component {
   componentDidMount() {
     let el = React.findDOMNode(this);
 
     $.getJSON("blobs/deptGrades.json", (data) => {
-      this.chart = new DynamicPieChart({
+      this.chart = new DonutChart({
         id: "_id",
         data: data,
         element: "#main-viz",

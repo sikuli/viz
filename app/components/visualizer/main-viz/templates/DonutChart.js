@@ -1,6 +1,6 @@
 // Configurator: a configuration abstraction which will serve
 // as an abstract configuration for common configuration patterns.
-// As of now, it is coupled to the DynamicPieChart, but eventually
+// As of now, it is coupled to the DonutChart, but eventually
 // this should be ripped out into into a more robust abstraction.
 class Configurator {
   constructor(config = {}) {
@@ -20,7 +20,7 @@ class Configurator {
   }
 }
 
-class DynamicPieChart {
+class DonutChart {
   constructor(config) {
     this.config = new Configurator(config).config();
 
@@ -131,4 +131,4 @@ class DynamicPieChart {
   }
 }
 
-module.exports = DynamicPieChart;
+module.exports = DonutChart;
