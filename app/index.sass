@@ -1,11 +1,14 @@
 $icon-font-path: '../fonts/'
 
+// This needs to come before bootstrap to ensure
+// that the variables are loaded.
+@import boilerplate/flatly/_variables.scss
+
 // bower:scss
-@import bower_components/bootswatch-scss/flatly/_variables.scss
 @import bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss
-@import bower_components/bootswatch-scss/flatly/_bootswatch.scss
 // endbower
 
+@import boilerplate/flatly/_bootswatch.scss
 @import boilerplate/viz-variables.sass
 
 @import components/header/header.sass
@@ -57,4 +60,3 @@ svg
 .container-fluid
   padding-left: 0px
   padding-right: 0px
-
