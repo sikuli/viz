@@ -39,9 +39,4 @@ class Chart extends React.Component {
   }
 }
 
-Chart.propTypes = {
-  // data: React.PropTypes.array,
-  // domain: React.PropTypes.object
-};
-
 module.exports = Chart;
