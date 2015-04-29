@@ -35,6 +35,7 @@
     "wiredep": "^2.0.0"
   },
   "dependencies": {
-    "dat": "^6.9.7"
+    "dat": "^6.9.7",
+    "express": "^4.12.3"
   }
 }

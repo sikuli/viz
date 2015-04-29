@@ -19,10 +19,37 @@ var db = dat("/Users/peyman/Desktop/Database", {}, function(err) {
 //
 //  });
 
+var createDatOptions = function(contentType) {
+
+  var options = {};
+
+  if(!contentType) return options;
+
+  switch(contentType) {
+
+      case "text/csv":
+        options.format = "csv";
+        break;
+
+      case "application/json":
+        options.format = "json";
+        break;
+
+      case "text/tsv":
+        options.format = "csv";
+        options.separator = "\t";
+        break;
+
+  }
+
+  return options;
+
+}
+
 app.post("/file", function(req, res) {
 
-  console.log(req);
-  res.send("YO");
+  console.log(req.headers["content-type"]);
+  res.send(createDatOptions(req.headers["content-type"]));
 
 });
 
