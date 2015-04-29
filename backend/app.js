@@ -8,7 +8,7 @@ var io = require('socket.io')(http);
 app.use(bodyParser.text({type: "*/*"}))
 app.use(express.static(__dirname));
 
-var db = dat("/Users/peyman/Desktop/Database", {}, function(err) {
+var db = dat(__dirname+"/Database", {}, function(err) {
 
   if(err)
     console.log("Error: " + err);
@@ -53,11 +53,10 @@ var createDatOptions = function(contentType) {
 
 app.post("/file", function(req, res) {
 
-  console.log(req.headers["content-type"]);
-  console.log(req.body);
   var datOptions = createDatOptions(req.headers["content-type"]);
   var writer = db.createWriteStream({format: datOptions});
-  var result = writer.end(req.body);
+  writer.end(req.body);
+  console.log(result);
   res.send(result);
 
 });
