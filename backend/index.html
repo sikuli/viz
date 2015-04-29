@@ -1,0 +1,37 @@
+<html>
+  
+  <head>
+    
+    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+  </head>
+  
+  <body>
+    
+    <div id="container">
+      
+    </div>
+    
+    <script>
+      
+      $("#container").append("<b>Connecting...</b>");
+      
+      var socket = io();
+      socket.on("connect", function(){
+        
+        $("#container").append("<b>Connected</b>");
+        socket.emit("getDataStream");
+        
+      });
+      
+      socket.on("dataStream", function(data){
+        
+        $("#container").append("<p>" + JSON.stringify(data) + "</p>");
+        
+      });
+      
+    </script>
+    
+  </body>
+  
+</html>

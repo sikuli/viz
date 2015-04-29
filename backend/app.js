@@ -6,6 +6,7 @@ var bodyParser = require("body-parser");
 var io = require('socket.io')(http);
 
 app.use(bodyParser.text({type: "*/*"}))
+app.use(express.static(__dirname));
 
 var db = dat("/Users/peyman/Desktop/Database", {}, function(err) {
 
