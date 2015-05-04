@@ -12,11 +12,12 @@ module.exports = DataViewer;
 var FieldsListView = React.createClass({
 
    render: function() {
-      var header = (<h6 className="detail-header">1,500 objects</h6>);
+     $.get("http://localhost:6461/api/metadata", function(metadata) {
+       console.log(metadata);
+     });
+     var header = (<h6 className="detail-header">Fields</h6>);
       return <div>
                {header}
-               <FieldItem />
-               <FieldItem />
                <FieldItem />
              </div>;
    }

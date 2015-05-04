@@ -60,16 +60,16 @@ app.post("/file", function(req, res) {
   res.send(result);
 
 });
-  
+
 io.on("connection", function(socket){
-  
+
   socket.on("getDataStream", function() {
-    
+
     db.createReadStream()
     .on('data', function (data) {
-      
+
       socket.emit("dataStream", data);
-      
+
     })
     .on('error', function (err) {
       console.log('Oh my!', err)
@@ -80,9 +80,9 @@ io.on("connection", function(socket){
     .on('end', function () {
       console.log('Stream closed')
     })
-    
+
   });
-  
+
 })
 
 http.listen(3000, function() {
