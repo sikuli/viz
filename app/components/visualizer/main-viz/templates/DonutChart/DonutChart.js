@@ -39,11 +39,18 @@ class DonutChart {
       .value((d) => { return d.value; });
 
     this.svg = d3.select(this.config.element).append("g");
+
+    this.key = this.config.accessors.label;
   }
 
   plot() {
     this.setupSvg();
     let data = this.coerceDataIntoUsableForm("CSCI");
+    this.loadVisualization(data);
+  }
+
+  update() {
+    let data = this.coerceDataIntoUsableForm("MATH");
     this.loadVisualization(data);
   }
 
@@ -56,7 +63,7 @@ class DonutChart {
       "transform",
       "translate(" + this.config.width / 2 + "," + this.config.height / 2 + ")"
     );
-  };
+  }
 
   findObject(subject) {
     return _.find(this.config.data, (item) => {
@@ -74,7 +81,7 @@ class DonutChart {
           };
       });
 
-      return { title: discoveredObj[self.id], values: values };
+      return { title: discoveredObj[this.id], values: values };
   }
 
   createPieSlices(values) {
@@ -82,36 +89,36 @@ class DonutChart {
 
     let slice = this.svg.select(".slices")
       .selectAll("path.slice")
-      .data(this.pie(values), this.config.key);
+      .data(this.pie(values), this.key);
 
     slice.enter()
       .insert("path")
-      .style("fill", (d) => { return self.color(d.data.label); })
+      .style("fill", (d) => { return this.color(d.data.label); })
       .attr("class", "slice");
 
     slice.transition()
       .duration(1000)
-      .attrTween("d", (d) => {
+      // Arrow functions are not only syntactical sugar, they lexically bind
+      // 'this'!
+      .attrTween("d", function(d) {
         this.current = this.current || d;
-        let interpolate = d3.interpolate(this.current, d);
-        this.current = interpolate(0);
+        let interpolateIt= d3.interpolate(this.current, d);
+        this.current = interpolateIt(0);
 
-        return (t) => { return self.arc(interpolate(t)); };
+        return function(t) { return self.arc(interpolateIt(t)); };
       });
 
     slice.exit().remove();
   }
 
   createTextLabels(values) {
-    let self = this;
-
     let text = this.svg.select(".labels").selectAll("text")
-      .data(this.pie(values), this.config.key);
+      .data(this.pie(values), this.key);
 
     text.enter()
       .append("text")
       .attr("dy", ".35em")
-      .text((d) => { return self.config.label(d.data); })
+      .text((d) => { return this.config.label(d.data); })
       .style("font-weight", "bold")
       .style("font-size", "34px")
       .style("fill", "White");
@@ -119,7 +126,7 @@ class DonutChart {
     text.transition()
       .duration(1000)
       .attr("transform", (d) => {
-        return `translate(${self.arc.centroid(d)})`;
+        return `translate(${this.arc.centroid(d)})`;
       });
 
     text.exit().remove();
