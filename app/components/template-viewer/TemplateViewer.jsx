@@ -12,19 +12,19 @@ class TemplateViewer extends React.Component {
 module.exports = TemplateViewer;
 
 class TemplateList extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {templates: []}
 
-    constructor() {
-        this.state = {templates: []}
-        $.getJSON("blobs/templates.json", (data)=> {
-            this.setState({templates: data});
-        }.bind(this)).fail(function (error) {
-            console.log(error);
-        }.bind(this));
+      $.getJSON("blobs/templates.json", (data) => {
+        this.setState({templates: data});
+      }.bind(this)).fail((error) => {
+        console.log(error);
+      }.bind(this));
     }
 
     passData(index) {
-        console.log(this.state.templates[index].data);
-
+      console.log(this.state.templates[index].data);
     }
 
     render() {
