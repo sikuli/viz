@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script language="javascript" type="text/javascript" src="bower_components/highland/dist/highland.js"></script>
-        <script language="javascript" type="text/javascript" src="bower_components/papaparse/papaparse.min.js"></script>
-        <style>
-            input {
-                background: blue
-            }
-        </style>
+        <script language="javascript" type="text/javascript" src="../bower_components/papaparse/papaparse.min.js"></script>
     </head>
     <body>
         <input type="file" id="files" name="files[]" accept=".csv, .json, .tsv, .txt, .yml, .xml" value="Upload" multiple/>
         <output id="list"></output>
 
         <script>
-            var _ = highland;
 
             function handleFileSelect(evt) {
                 /* want to check out what the event looks like */
