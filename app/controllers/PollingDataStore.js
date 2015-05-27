@@ -1,6 +1,6 @@
 var makeRequest = Reflux.createAction({ asyncResult: true });
 
-var DataStore = Reflux.createStore({
+var PollingDataStore = Reflux.createStore({
     init: function() {
       this.listenTo(makeRequest, "onMakeRequest");
     },
@@ -19,4 +19,4 @@ var DataStore = Reflux.createStore({
 
 setInterval(makeRequest, 1000);
 
-module.export = DataStore;
+module.export = PollingDataStore;
