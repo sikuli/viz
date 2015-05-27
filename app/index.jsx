@@ -3,7 +3,7 @@ import Footer from "./components/footer/Footer.jsx";
 import DataViewer from "./components/data-viewer/DataViewer.jsx";
 import TemplateViewer from "./components/template-viewer/TemplateViewer.jsx";
 import Visualizer from "./components/visualizer/Visualizer.jsx";
-import DataStore from "./controllers/DataStore.js"
+import DataStore from "./controllers/DataStore.js";
 
 $("#collapse-button").on("click", function() {
   var dataP = $("#data-viewer");
