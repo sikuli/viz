@@ -13,7 +13,8 @@ class Configurator {
       height: 512,
       id: "_id",
       label: (n) => { return n; },
-      width: 1024
+      width: 1024,
+      transitionTime: 500
     };
 
     this.config = () => { return _.merge(defaults, config); };
@@ -65,15 +66,9 @@ class DonutChart {
     );
   }
 
-  findObject(subject) {
-    return _.find(this.config.data, (item) => {
-      return item[this.config.id] === subject;
-    });
-  }
-
   coerceDataIntoUsableForm(subject) {
       let labels = this.color.domain();
-      let discoveredObj = this.findObject(subject);
+      let discoveredObj = _.sample(this.config.data);
       let values = labels.map((label) => {
           return {
               label: label,
@@ -97,7 +92,7 @@ class DonutChart {
       .attr("class", "slice");
 
     slice.transition()
-      .duration(1000)
+      .duration(this.config.transitionTime)
       // Arrow functions are not only syntactical sugar, they lexically bind
       // 'this'!
       .attrTween("d", function(d) {
@@ -124,7 +119,7 @@ class DonutChart {
       .style("fill", "White");
 
     text.transition()
-      .duration(1000)
+      .duration(this.config.transitionTime)
       .attr("transform", (d) => {
         return `translate(${this.arc.centroid(d)})`;
       });
