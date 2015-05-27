@@ -1,39 +1,50 @@
 import DonutChart from "./DonutChart.js";
 
 class DonutChartComponent extends React.Component {
-  componentDidMount() {
-    $.getJSON("blobs/deptGrades.json")
-      .done((data) => {
-        this.chart = new DonutChart({
-          id: "_id",
-          data: data,
-          element: "#main-viz",
-          height: 512,
-          width: 1024,
-          fields: [
-            "PCT_A",
-            "PCT_B",
-            "PCT_C",
-            "PCT_D",
-            "PCT_F"
-          ],
-          label: (d) => { return d.label.replace("PCT_", ""); },
-          accessors: {
-            label: (d) => { return d.data.label; }
-          }
-        });
-
-        this.chart.plot();
-      })
-      .fail((jqxhr, textStatus, error) => {
-        console.error(error);
-      });
+  constructor(props) {
+    super(props);
   }
 
+  plot() {
+    if (!this.chart) {
+      this.chart = new DonutChart({
+        id: "_id",
+        data: this.props.data,
+        element: "#main-viz",
+        height: 512,
+        width: 1024,
+        fields: [
+          "PCT_A",
+          "PCT_B",
+          "PCT_C",
+          "PCT_D",
+          "PCT_F"
+        ],
+        label: (d) => { return d.label.replace("PCT_", ""); },
+        accessors: {
+          label: (d) => { return d.data.label; }
+        }
+      });
+    }
+
+    // Ghetto: but shows working update.
+    // TODO: Remove this loaded logic
+    if (this.loaded) {
+      this.chart.update();
+    } else {
+      this.chart.plot();
+      this.loaded = true;
+    }
+  };
+
   render() {
-    return (
-      <div className="Chart"></div>
-    );
+    // Ensure there is actually data to be rendered
+    // TODO: Find cleaner way to ensure there is data to render
+    if (this.props.data.length > 0) {
+      this.plot();
+    }
+
+    return <div className="Chart"></div>;
   }
 }
 

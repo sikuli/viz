@@ -1,4 +1,4 @@
-import D3Chart from "./D3Chart.js"
+import D3Chart from "./D3Chart.js";
 
 class Chart extends React.Component {
   componentDidMount() {

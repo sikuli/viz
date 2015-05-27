@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+
+# Script to install all dependencies for project
+
+
+set -e
+
+sep() {
+  echo "================"
+  echo
+}
+
+pass() {
+  echo
+  echo "$(tput setaf 2)    PASS: $1 $(tput sgr0)"
+}
+
+fail() {
+  echo
+  echo "$(tput setaf 1)    FAIL: $1 $(tput sgr0)"
+}
+
+
+echo "Checking for node..."
+if hash node 2>/dev/null; then
+  pass "node.js is installed"
+else
+  fail "no node.js executable found"
+  exit 1
+fi
+sep
+
+echo "Checking for npm..."
+if hash npm 2>/dev/null; then
+  pass "npm is installed"
+else
+  fail "no npm executable found"
+  exit 1
+fi
+sep
+
+echo "Installing gulp..."
+if npm install -g gulp; then
+  pass "gulp installed"
+else
+  fail "gulp could not be installed"
+  exit 1
+fi
+sep
+
+echo "Installing bower..."
+if npm install -g bower; then
+  pass "bower installed"
+else
+  fail "bower could not be installed"
+  exit 1
+fi
+sep
+
+echo "Installing babel..."
+if npm install -g babel; then
+  pass "babel installed"
+else
+  fail "babel could not be installed"
+  exit 1
+fi
+sep
+
+echo "Installing bower components..."
+if bower install > /dev/null; then
+  pass "bower components installed"
+else
+  fail "bower components could not be installed"
+  exit 1
+fi
+sep
+
+echo "Installing npm components..."
+if npm install; then
+  pass "bower components installed"
+else
+  fail "bower components could not be installed"
+  exit 1
+fi
