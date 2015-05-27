@@ -102,7 +102,7 @@ class DonutChart {
       // 'this'!
       .attrTween("d", function(d) {
         this.current = this.current || d;
-        let interpolateIt= d3.interpolate(this.current, d);
+        let interpolateIt = d3.interpolate(this.current, d);
         this.current = interpolateIt(0);
 
         return function(t) { return self.arc(interpolateIt(t)); };

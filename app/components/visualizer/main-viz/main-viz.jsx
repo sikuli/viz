@@ -11,15 +11,15 @@ class MainViz extends React.Component {
       return $.getJSON("blobs/deptGrades.json", (data) => {
         this.setState({ compData: data });
       }).fail((error) => {
-        console.log(error);
+        console.error(error);
       });
-    }
+    };
 
     setInterval(getJSON, 3000);
   }
 
   render() {
-    return(<DonutChartComponent data={this.state.compData} />)
+    return <DonutChartComponent data={this.state.compData} />;
   }
 }
 

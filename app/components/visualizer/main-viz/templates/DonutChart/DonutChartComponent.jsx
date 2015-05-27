@@ -4,7 +4,6 @@ class DonutChartComponent extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {}
 
   plot() {
     if (!this.chart) {
@@ -30,9 +29,9 @@ class DonutChartComponent extends React.Component {
 
     // Ghetto: but shows working update.
     // TODO: Remove this loaded logic
-    if (this.loaded)
+    if (this.loaded) {
       this.chart.update();
-    else {
+    } else {
       this.chart.plot();
       this.loaded = true;
     }
@@ -41,12 +40,11 @@ class DonutChartComponent extends React.Component {
   render() {
     // Ensure there is actually data to be rendered
     // TODO: Find cleaner way to ensure there is data to render
-    if (this.props.data.length > 0)
+    if (this.props.data.length > 0) {
       this.plot();
+    }
 
-    return (
-      <div className="Chart"></div>
-    );
+    return <div className="Chart"></div>;
   }
 }
 
