@@ -1,4 +1,5 @@
 import DonutChartComponent from "./templates/DonutChart/DonutChartComponent.jsx";
+import PollingDataStore from "./../../../controllers/PollingDataStore.js";
 
 class MainViz extends React.Component {
   constructor(props) {
@@ -7,15 +8,13 @@ class MainViz extends React.Component {
   }
 
   componentDidMount() {
-    var getJSON = () => {
-      return $.getJSON("blobs/deptGrades.json", (data) => {
-        this.setState({ compData: data });
-      }).fail((error) => {
-        console.error(error);
-      });
-    };
+    this.unsubscribe = PollingDataStore.listen((data) => {
+      this.setState({ compData: data });
+    });
+  }
 
-    setInterval(getJSON, 3000);
+  componentWillUnmount() {
+    return this.unsubscribe();
   }
 
   render() {

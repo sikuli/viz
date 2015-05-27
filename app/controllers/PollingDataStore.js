@@ -1,22 +1,21 @@
-var makeRequest = Reflux.createAction({ asyncResult: true });
+var makeRequest = Reflux.createAction();
 
 var PollingDataStore = Reflux.createStore({
-    init: function() {
-      this.listenTo(makeRequest, "onMakeRequest");
-    },
+  init: function() {
+    this.listenTo(makeRequest, this.onMakeRequest);
+  },
 
-    onMakeRequest: function(url) {
-      $.getJSON("blobs/deptGrades.json")
-        .done((data) => {
-          makeRequest.completed();
-        })
-        .fail((jqxhr, textSatus, err) => {
-          console.error(err);
-          makeRequest.failed(err);
-        });
-    }
+  onMakeRequest: function() {
+    return $.getJSON("blobs/deptGrades.json")
+      .done((data) => {
+        this.trigger(data);
+      })
+      .fail((jqxhr, textSatus, err) => {
+        console.error(err);
+      });
+  }
 });
 
 setInterval(makeRequest, 1000);
 
-module.export = PollingDataStore;
+module.exports = PollingDataStore;
