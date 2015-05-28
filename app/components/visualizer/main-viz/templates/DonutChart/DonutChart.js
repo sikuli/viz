@@ -7,12 +7,18 @@ class Configurator {
     let defaults = {
       accessors: {},
       colors: ["#6B0C22", "#D9042B", "#F4CB89", "#588C8C", "#011C26"],
-      data: {},
+      data: {
+        "A": 0.2,
+        "B": 0.2,
+        "C": 0.2,
+        "D": 0.2,
+        "F": 0.2
+      },
       element: "body",
       fields: {},
       height: 512,
       id: "_id",
-      label: (n) => { return n; },
+      label: "DonutChart",
       width: 1024,
       transitionTime: 1000
     };
@@ -50,9 +56,11 @@ class DonutChart {
     this.loadVisualization(data);
   }
 
-  update() {
-    let data = this.coerceDataIntoUsableForm();
-    this.loadVisualization(data);
+  update(data) {
+    console.log(data);
+    this.config.data = data;
+    let d = this.coerceDataIntoUsableForm();
+    this.loadVisualization(d);
   }
 
   setupSvg() {
@@ -74,7 +82,7 @@ class DonutChart {
   // TODO: Decouple the data ceorcion logic
   coerceDataIntoUsableForm() {
     let labels = this.color.domain();
-    let discoveredObj = _.sample(this.config.data);
+    let discoveredObj = this.config.data;
     let values = labels.map((label) => {
       return {
         label: label,

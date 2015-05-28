@@ -9,7 +9,7 @@ class DonutChartComponent extends React.Component {
     if (!this.chart) {
       this.chart = new DonutChart({
         id: "_id",
-        data: this.props.data,
+        data: this.filterData(this.props.data),
         element: "#main-viz",
         height: 512,
         width: 1024,
@@ -30,7 +30,7 @@ class DonutChartComponent extends React.Component {
     // Ghetto: but shows working update.
     // TODO: Remove this loaded logic
     if (this.loaded) {
-      this.chart.update();
+      this.chart.update(this.filterData(this.props.data));
     } else {
       this.chart.create();
       this.loaded = true;
@@ -45,6 +45,10 @@ class DonutChartComponent extends React.Component {
     }
 
     return <div className="Chart"></div>;
+  }
+
+  filterData(data) {
+    return _.sample(data);
   }
 }
 
