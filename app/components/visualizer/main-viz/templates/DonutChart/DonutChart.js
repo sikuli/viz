@@ -13,7 +13,8 @@ class Configurator {
       height: 512,
       id: "_id",
       label: (n) => { return n; },
-      width: 1024
+      width: 1024,
+      transitionTime: 1000
     };
 
     this.config = () => { return _.merge(defaults, config); };
@@ -43,14 +44,14 @@ class DonutChart {
     this.key = this.config.accessors.label;
   }
 
-  plot() {
+  create() {
     this.setupSvg();
-    let data = this.coerceDataIntoUsableForm("CSCI");
+    let data = this.coerceDataIntoUsableForm();
     this.loadVisualization(data);
   }
 
   update() {
-    let data = this.coerceDataIntoUsableForm("MATH");
+    let data = this.coerceDataIntoUsableForm();
     this.loadVisualization(data);
   }
 
@@ -58,6 +59,11 @@ class DonutChart {
     this.svg.append("g").attr("class", "slices");
     this.svg.append("g").attr("class", "labels");
     this.svg.append("g").attr("class", "lines");
+    this.svg.append("g")
+      .attr("class", "title")
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("font-size", 28);
 
     this.svg.attr(
       "transform",
@@ -65,23 +71,18 @@ class DonutChart {
     );
   }
 
-  findObject(subject) {
-    return _.find(this.config.data, (item) => {
-      return item[this.config.id] === subject;
+  // TODO: Decouple the data ceorcion logic
+  coerceDataIntoUsableForm() {
+    let labels = this.color.domain();
+    let discoveredObj = _.sample(this.config.data);
+    let values = labels.map((label) => {
+      return {
+        label: label,
+        value: discoveredObj[label]
+      };
     });
-  }
 
-  coerceDataIntoUsableForm(subject) {
-      let labels = this.color.domain();
-      let discoveredObj = this.findObject(subject);
-      let values = labels.map((label) => {
-          return {
-              label: label,
-              value: discoveredObj[label]
-          };
-      });
-
-      return { title: discoveredObj[this.id], values: values };
+    return { title: discoveredObj[this.config.id], values: values };
   }
 
   createPieSlices(values) {
@@ -97,7 +98,7 @@ class DonutChart {
       .attr("class", "slice");
 
     slice.transition()
-      .duration(1000)
+      .duration(this.config.transitionTime)
       // Arrow functions are not only syntactical sugar, they lexically bind
       // 'this'!
       .attrTween("d", function(d) {
@@ -124,7 +125,7 @@ class DonutChart {
       .style("fill", "White");
 
     text.transition()
-      .duration(1000)
+      .duration(this.config.transitionTime)
       .attr("transform", (d) => {
         return `translate(${this.arc.centroid(d)})`;
       });
@@ -133,8 +134,16 @@ class DonutChart {
   }
 
   loadVisualization(input) {
+    this.createTitle(input.title);
     this.createPieSlices(input.values);
     this.createTextLabels(input.values);
+  }
+
+  createTitle(title) {
+    this.svg
+      .select(".title")
+      .select("text")
+      .text(title);
   }
 }
 
