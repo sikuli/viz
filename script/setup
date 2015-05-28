@@ -2,11 +2,9 @@
 
 # Script to install all dependencies for project
 
-
 set -e
 
 sep() {
-  echo "================"
   echo
 }
 
@@ -20,13 +18,27 @@ fail() {
   echo "$(tput setaf 1)    FAIL: $1 $(tput sgr0)"
 }
 
+warn() {
+  echo
+  echo "$(tput setaf 3)    WARN: $1 $(tput sgr0)"
+}
 
 echo "Checking for node..."
 if hash node 2>/dev/null; then
   pass "node.js is installed"
 else
   fail "no node.js executable found"
-  exit 1
+fi
+sep
+
+NODE_VERSION=$(node --version)
+NODE_RECOMMENDED="v0.10.38"
+
+echo "Checking node version..."
+if [ "$NODE_VERSION" == "$NODE_RECOMMENDED" ]; then
+  pass "node.js is the recommended version"
+else
+  warn "node.js version is "$NODE_VERSION", recommended version is "$NODE_RECOMMENDED""
 fi
 sep
 
