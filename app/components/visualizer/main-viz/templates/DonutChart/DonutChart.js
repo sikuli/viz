@@ -14,7 +14,7 @@ class Configurator {
       id: "_id",
       label: (n) => { return n; },
       width: 1024,
-      transitionTime: 500
+      transitionTime: 1000
     };
 
     this.config = () => { return _.merge(defaults, config); };
@@ -44,14 +44,14 @@ class DonutChart {
     this.key = this.config.accessors.label;
   }
 
-  plot() {
+  create() {
     this.setupSvg();
-    let data = this.coerceDataIntoUsableForm("CSCI");
+    let data = this.coerceDataIntoUsableForm();
     this.loadVisualization(data);
   }
 
   update() {
-    let data = this.coerceDataIntoUsableForm("MATH");
+    let data = this.coerceDataIntoUsableForm();
     this.loadVisualization(data);
   }
 
@@ -59,6 +59,11 @@ class DonutChart {
     this.svg.append("g").attr("class", "slices");
     this.svg.append("g").attr("class", "labels");
     this.svg.append("g").attr("class", "lines");
+    this.svg.append("g")
+      .attr("class", "title")
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("font-size", 28);
 
     this.svg.attr(
       "transform",
@@ -66,17 +71,18 @@ class DonutChart {
     );
   }
 
-  coerceDataIntoUsableForm(subject) {
-      let labels = this.color.domain();
-      let discoveredObj = _.sample(this.config.data);
-      let values = labels.map((label) => {
-          return {
-              label: label,
-              value: discoveredObj[label]
-          };
-      });
+  // TODO: Decouple the data ceorcion logic
+  coerceDataIntoUsableForm() {
+    let labels = this.color.domain();
+    let discoveredObj = _.sample(this.config.data);
+    let values = labels.map((label) => {
+      return {
+        label: label,
+        value: discoveredObj[label]
+      };
+    });
 
-      return { title: discoveredObj[this.id], values: values };
+    return { title: discoveredObj[this.config.id], values: values };
   }
 
   createPieSlices(values) {
@@ -128,8 +134,16 @@ class DonutChart {
   }
 
   loadVisualization(input) {
+    this.createTitle(input.title);
     this.createPieSlices(input.values);
     this.createTextLabels(input.values);
+  }
+
+  createTitle(title) {
+    this.svg
+      .select(".title")
+      .select("text")
+      .text(title);
   }
 }
 

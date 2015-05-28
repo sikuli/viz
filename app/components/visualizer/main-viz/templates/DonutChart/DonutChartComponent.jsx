@@ -32,7 +32,7 @@ class DonutChartComponent extends React.Component {
     if (this.loaded) {
       this.chart.update();
     } else {
-      this.chart.plot();
+      this.chart.create();
       this.loaded = true;
     }
   };

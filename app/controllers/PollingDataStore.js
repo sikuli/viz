@@ -16,6 +16,6 @@ var PollingDataStore = Reflux.createStore({
   }
 });
 
-setInterval(makeRequest, 1000);
+setInterval(makeRequest, 3000);
 
 module.exports = PollingDataStore;
