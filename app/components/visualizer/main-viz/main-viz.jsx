@@ -1,5 +1,7 @@
 import DonutChartComponent from "./templates/DonutChart/DonutChartComponent.jsx";
+import NullTemplateComponent from "./templates/NullTemplate/NullTemplateComponent.jsx";
 import PollingDataStore from "./../../../controllers/PollingDataStore.js";
+import {TemplateController} from "./../../../controllers/TemplateController.js";
 
 class MainViz extends React.Component {
   constructor(props) {
@@ -9,18 +11,35 @@ class MainViz extends React.Component {
     // template to render.
     this.state = {
       data: [],
-      template: DonutChartComponent
+      template: NullTemplateComponent
     };
   }
 
+  // After the component is mounted, we subscribe to the data and template
+  // stores. With this approach, the state of our component updates whenever
+  // there is an event in which either:
+  //
+  //   a) the data is updated
+  //   b) the template to render has been changed
   componentDidMount() {
-    this.unsubscribe = PollingDataStore.listen((data) => {
-      this.setState({ data: data });
+    this.unsubscribeFromData = PollingDataStore.listen((data) => {
+      this.setState({
+        data: data,
+        template: this.state.template
+      });
+    });
+
+    this.unsubscribeFromTemplates = TemplateController.listen((template) => {
+      this.setState({
+        data: this.state.data,
+        template: template
+      });
     });
   }
 
   componentWillUnmount() {
-    return this.unsubscribe();
+    this.unsubscribeFromData();
+    this.unsubscribeFromTemplates();
   }
 
   render() {
