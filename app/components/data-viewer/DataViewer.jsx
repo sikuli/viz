@@ -1,26 +1,62 @@
-// sub-component imports
 import FieldItem from "./field-item/FieldItem.jsx";
-// end sub-component imports
-class DataViewer extends React.Component {
+import PollingDataStore from "./../../controllers/PollingDataStore.js";
+
+export default class DataViewer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {data: []};
+  }
+
+  componentDidMount() {
+    this.unsubscribe = PollingDataStore.listen((data) => {
+      this.setState({data: data});
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
-    return (<div className="data-viewer"></div>);
+    return (
+      <div className="data-viewer">
+        <div className="container-fluid">
+          <button className="btn btn-default spaced-button left">Load</button>
+          <button className="btn btn-default spaced-button right">Connect</button>
+        </div>
+
+        <FieldsList data={this.state.data} />
+      </div>
+    );
   }
 }
 
-module.exports = DataViewer;
+class FieldsList extends React.Component {
+  extractUniqKeys(data) {
+    let extractKeys = (d) => {
+      return _.map(d, (obj) => {
+        return Object.keys(obj);
+      });
+    };
 
-var FieldsListView = React.createClass({
+    return _.compose(_.uniq, _.flatten, extractKeys)(data);
+  }
 
-   render: function() {
-      var header = (<h6 className="detail-header">1,500 objects</h6>);
-      return <div>
-               {header}
-               <FieldItem />
-               <FieldItem />
-               <FieldItem />
-             </div>;
-   }
+  render() {
+    let uniqKeys = this.extractUniqKeys(this.props.data);
 
-});
+    return (
+      <div id="fields-list">
+        <h3>Name</h3>
+        {
+          uniqKeys.map((n) => {
+            return <FieldItem key={n} name={n} value="50%" />;
+          })
+        }
+      </div>
+    );
+  }
+}
 
-React.render(<FieldsListView />, document.getElementById("dataViewerContainer"));
+React.render(<DataViewer />, document.getElementById("data-viewer"));
