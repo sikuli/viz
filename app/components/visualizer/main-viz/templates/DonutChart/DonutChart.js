@@ -6,18 +6,22 @@ class Configurator {
   constructor(config = {}) {
     let defaults = {
       accessors: {},
-      colors: ["#6B0C22", "#D9042B", "#F4CB89", "#588C8C", "#011C26"],
-      data: {},
-      element: "body",
-      fields: {},
+      data: {
+        "A": 0.2,
+        "B": 0.2,
+        "C": 0.2,
+        "D": 0.2,
+        "F": 0.2
+      },
+      element: "#main-viz",
       height: 512,
       id: "_id",
-      label: (n) => { return n; },
+      label: "DonutChart",
       width: 1024,
       transitionTime: 1000
     };
 
-    this.config = () => { return _.merge(defaults, config); };
+    this.config = () => { return _.defaults(config, defaults); };
   }
 }
 
@@ -31,17 +35,11 @@ class DonutChart {
       .outerRadius(this.radius * 0.8)
       .innerRadius(this.radius * 0.4);
 
-    this.color = d3.scale.ordinal()
-      .domain(this.config.fields)
-      .range(this.config.colors);
-
     this.pie = d3.layout.pie()
       .sort(null)
-      .value((d) => { return d.value; });
+      .value((d) => { return d[1]; });
 
     this.svg = d3.select(this.config.element).append("g");
-
-    this.key = this.config.accessors.label;
   }
 
   create() {
@@ -50,9 +48,11 @@ class DonutChart {
     this.loadVisualization(data);
   }
 
-  update() {
-    let data = this.coerceDataIntoUsableForm();
-    this.loadVisualization(data);
+  update(major) {
+    this.config.data = major.data;
+    this.config.id = major.id;
+    let d = this.coerceDataIntoUsableForm();
+    this.loadVisualization(d);
   }
 
   setupSvg() {
@@ -73,16 +73,9 @@ class DonutChart {
 
   // TODO: Decouple the data ceorcion logic
   coerceDataIntoUsableForm() {
-    let labels = this.color.domain();
-    let discoveredObj = _.sample(this.config.data);
-    let values = labels.map((label) => {
-      return {
-        label: label,
-        value: discoveredObj[label]
-      };
-    });
+    let values = _.pairs(this.config.data);
 
-    return { title: discoveredObj[this.config.id], values: values };
+    return { title: this.config.id, values: values };
   }
 
   createPieSlices(values) {
@@ -90,17 +83,14 @@ class DonutChart {
 
     let slice = this.svg.select(".slices")
       .selectAll("path.slice")
-      .data(this.pie(values), this.key);
+      .data(this.pie(values));
 
     slice.enter()
       .insert("path")
-      .style("fill", (d) => { return this.color(d.data.label); })
       .attr("class", "slice");
 
     slice.transition()
       .duration(this.config.transitionTime)
-      // Arrow functions are not only syntactical sugar, they lexically bind
-      // 'this'!
       .attrTween("d", function(d) {
         this.current = this.current || d;
         let interpolateIt = d3.interpolate(this.current, d);
@@ -114,12 +104,14 @@ class DonutChart {
 
   createTextLabels(values) {
     let text = this.svg.select(".labels").selectAll("text")
-      .data(this.pie(values), this.key);
+    .data(this.pie(values), (d) => {
+      return d.data[0];
+    });
 
     text.enter()
       .append("text")
       .attr("dy", ".35em")
-      .text((d) => { return this.config.label(d.data); })
+      .text((d) => { return d.data[0]; })
       .style("font-weight", "bold")
       .style("font-size", "34px")
       .style("fill", "White");
@@ -140,7 +132,7 @@ class DonutChart {
   }
 
   createTitle(title) {
-    this.svg
+    return this.svg
       .select(".title")
       .select("text")
       .text(title);
