@@ -33,13 +33,27 @@ export default class DataViewer extends React.Component {
 }
 
 class FieldsList extends React.Component {
+  extractUniqKeys(data) {
+    let extractKeys = (d) => {
+      return _.map(d, (obj) => {
+        return Object.keys(obj);
+      });
+    };
+
+    return _.compose(_.uniq, _.flatten, extractKeys)(data);
+  }
+
   render() {
+    let uniqKeys = this.extractUniqKeys(this.props.data);
+
     return (
       <div id="fields-list">
         <h3>Name</h3>
-        <FieldItem name="Field 1" value="50%" />
-        <FieldItem name="Field 2" value="50%" />
-        <FieldItem name="Field 3" value="50%" />
+        {
+          uniqKeys.map((n) => {
+            return <FieldItem key={n} name={n} value="50%" />;
+          })
+        }
       </div>
     );
   }
