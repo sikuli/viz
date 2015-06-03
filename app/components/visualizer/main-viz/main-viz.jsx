@@ -4,12 +4,18 @@ import PollingDataStore from "./../../../controllers/PollingDataStore.js";
 class MainViz extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { compData: [] };
+
+    // The state of the component includes the current dataset, and which
+    // template to render.
+    this.state = {
+      data: [],
+      template: DonutChartComponent
+    };
   }
 
   componentDidMount() {
     this.unsubscribe = PollingDataStore.listen((data) => {
-      this.setState({ compData: data });
+      this.setState({ data: data });
     });
   }
 
@@ -18,7 +24,7 @@ class MainViz extends React.Component {
   }
 
   render() {
-    return <DonutChartComponent data={this.state.compData} />;
+    return <this.state.template data={this.state.data} />;
   }
 }
 
