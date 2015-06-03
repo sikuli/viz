@@ -1,7 +1,6 @@
 import TemplateItem from "./template-item/TemplateItem.jsx";
 
 class TemplateViewer extends React.Component {
-
   render() {
     return (<div className="template-viewer"></div>);
   }
@@ -26,16 +25,20 @@ class TemplateList extends React.Component {
   render() {
     return (
       <div>
-          <h3 className="template-head col-md-8 col-md-offset-4">Templates</h3>;
-          {
-            this.state.templates.map((temp) => {
-              return <TemplateItem key={temp.id}
-                      select={temp.id}
-                      img={temp.imageURL}
-                      dims={temp.dims}
-                      name={temp.templateName}
-                      data={temp.data} />;
-            })
+        <h3 className="template-head col-md-8 col-md-offset-4">Templates</h3>
+        {
+          this.state.templates.map((temp) => {
+            return (
+              <TemplateItem key={temp.id}
+                            select={temp.id}
+                            image={temp.image}
+                            dimensions={temp.dimensions}
+                            name={temp.name}
+                            description={temp.description}
+                            data={temp.data} />
+
+            );
+          })
         }
       </div>
     );

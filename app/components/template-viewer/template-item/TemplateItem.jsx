@@ -1,17 +1,23 @@
-class TemplateItem extends React.Component {
+import {changeTemplate} from "./../../../controllers/TemplateController.js";
+import DonutChartComponent from "./../../visualizer/main-viz/templates/DonutChart/DonutChartComponent.jsx";
+
+export default class TemplateItem extends React.Component {
+  handleClick() {
+    return changeTemplate(DonutChartComponent);
+  }
+
   render() {
     return (
-      <div className="template-item col-md-10 col-md-offset-1" onClick={this.props.onClick} >
-        <div className="thumb-container">
-          <img className="thumb-image" src={this.props.img}/>
-        </div>
-        <p className="details-container">
-          {this.props.name}
-          <span className="dims">({this.props.dims} dims)</span>
-        </p>
+      <div className="template-item col-md-10 col-md-offset-1"
+           onClick={this.handleClick}>
+        <img alt="template preview image" src={this.props.image}></img>
+        <h3>{this.props.name}</h3>
+        <p>{this.props.description}</p>
+        <h4>Specs:</h4>
+        <ul>
+          <li>Dimensions: {this.props.dimensions}</li>
+        </ul>
       </div>
     );
   }
 }
-
-module.exports = TemplateItem;
