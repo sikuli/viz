@@ -1,5 +1,5 @@
-import DonutChartComponent from "./templates/DonutChart/DonutChartComponent.jsx";
-import NullTemplateComponent from "./templates/NullTemplate/NullTemplateComponent.jsx";
+import DonutChartComponent from "./../../../templates/DonutChart/DonutChartComponent.jsx";
+import NullTemplateComponent from "./../../../templates/NullTemplate/NullTemplateComponent.jsx";
 import PollingDataStore from "./../../../controllers/PollingDataStore.js";
 import {TemplateController} from "./../../../controllers/TemplateController.js";
 
