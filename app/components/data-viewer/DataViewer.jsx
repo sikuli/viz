@@ -1,26 +1,22 @@
-// sub-component imports
 import FieldItem from "./field-item/FieldItem.jsx";
-// end sub-component imports
-class DataViewer extends React.Component {
+
+export default class DataViewer extends React.Component {
   render() {
-    return (<div className="data-viewer"></div>);
+    return <div className="data-viewer" />;
   }
 }
 
-module.exports = DataViewer;
+class FieldsList extends React.Component {
+  render() {
+    return (
+      <div>
+        <h3>Name</h3>
+        <FieldItem name="Field 1" value="50%" />
+        <FieldItem name="Field 2" value="50%" />
+        <FieldItem name="Field 3" value="50%" />
+      </div>
+    );
+  }
+}
 
-var FieldsListView = React.createClass({
-
-   render: function() {
-      var header = (<h6 className="detail-header">1,500 objects</h6>);
-      return <div>
-               {header}
-               <FieldItem />
-               <FieldItem />
-               <FieldItem />
-             </div>;
-   }
-
-});
-
-React.render(<FieldsListView />, document.getElementById("dataViewerContainer"));
+React.render(<FieldsList />, document.getElementById("fields-list"));

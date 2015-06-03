@@ -3,8 +3,8 @@ export default class FieldItem extends React.Component {
     return (
       <div className="field-item container-fluid">
          <div className="col-md-8">
-            <b>{this.props.key}</b>
-            <p className="field-name">{this.props.value}</p>
+            <b>{this.props.name}</b>
+            <p>{this.props.value}</p>
          </div>
       </div>
     );
