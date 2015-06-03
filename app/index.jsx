@@ -2,7 +2,7 @@ import Header from "./components/header/Header.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import DataViewer from "./components/data-viewer/DataViewer.jsx";
 import TemplateViewer from "./components/template-viewer/TemplateViewer.jsx";
-import Visualizer from "./components/visualizer/Visualizer.jsx";
+import MainViz from "./components/visualizer/main-viz/MainViz.jsx";
 
 $("#collapse-button").on("click", function() {
   var dataP = $("#data-viewer");
