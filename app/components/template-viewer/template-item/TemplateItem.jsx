@@ -1,4 +1,4 @@
-import {changeTemplate} from "./../../../controllers/TemplateController.js";
+import {changeTemplate} from "./../../../controllers/TemplateStore.js";
 import DonutChartComponent from "./../../../templates/DonutChart/DonutChartComponent.jsx";
 
 export default class TemplateItem extends React.Component {
