@@ -123,7 +123,7 @@ gulp.task("serve", ["scripts", "views", "styles", "fonts"], function () {
 
   // run tasks when changes are detected
   gulp.watch("app/**/*.jade", ["views"].concat(tests));
-  gulp.watch("app/**/*.js{,x}", ["scripts"].concat(tests));
+  gulp.watch("app/**/*.js{,x,on}", ["scripts"].concat(tests));
   gulp.watch("app/**/*.sass", ["styles"].concat(tests));
   gulp.watch("app/fonts/**/*", ["fonts"].concat(tests));
   gulp.watch("tests/spec/**/*.js", ["mocha"].concat(tests));

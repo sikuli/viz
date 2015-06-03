@@ -31,9 +31,10 @@ class TemplateList extends React.Component {
             this.state.templates.map((temp) => {
               return <TemplateItem key={temp.id}
                       select={temp.id}
-                      img={temp.imageURL}
-                      dims={temp.dims}
-                      name={temp.templateName}
+                      image={temp.image}
+                      dimensions={temp.dimensions}
+                      name={temp.name}
+                      description={temp.description}
                       data={temp.data} />;
             })
         }
