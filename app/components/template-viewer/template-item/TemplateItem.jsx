@@ -1,6 +1,4 @@
 import {changeTemplate} from "./../../../controllers/TemplateStore.js";
-import DonutChartComponent from "./../../../templates/DonutChart/DonutChartComponent.jsx";
-import C3TemplateComponent from "./../../../templates/C3Template/C3TemplateComponent.jsx";
 
 export default class TemplateItem extends React.Component {
   handleClick() {
