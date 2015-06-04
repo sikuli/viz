@@ -1,23 +1,21 @@
 # Viz
 
-Built to help anyone visualize any data in their browser.
+Built to help _anyone_ visualize _any_ data in their browser.
 
 ## Installation
 
 1. Git it
   - `git clone https://github.com/sikuli/viz viz && cd $_`
 1. Install dependencies
-  - `npm install -g bower gulp && npm install && bower install`
-1. Run the tests
-  - `gulp test`
+  - `./exe/setup`
 1. Run the server
   - `gulp serve`
 
 ## Pattern for contribution
 
-- Make a branch
 - Choose a task
-- Add it under your name on the master branch
+- Make a feature branch
+- Implement the feature
 - Submit a pull request when you're ready to submit the task
 
 ## General Information
