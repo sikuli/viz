@@ -5,6 +5,14 @@ export default class DonutChartComponent extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    // Ensure there is actually data to be rendered
+    // TODO: Find cleaner way to ensure there is data to render
+    if (this.props.data.length > 0) {
+      this.plot();
+    }
+  }
+
   plot() {
     if (!this.chart) {
       let d = this.filterData(this.props.data);
@@ -30,12 +38,6 @@ export default class DonutChartComponent extends React.Component {
   };
 
   render() {
-    // Ensure there is actually data to be rendered
-    // TODO: Find cleaner way to ensure there is data to render
-    if (this.props.data.length > 0) {
-      this.plot();
-    }
-
     return <div className="Chart"></div>;
   }
 
