@@ -65,7 +65,7 @@ gulp.task("html", ["styles", "views", "scripts"], function () {
 });
 
 gulp.task("images", function () {
-  return gulp.src("app/images/**/*")
+  return gulp.src("public/images/**/*")
     .pipe($.cache($.imagemin({
       progressive: true,
       interlaced: true,
@@ -111,7 +111,8 @@ gulp.task("serve", ["scripts", "views", "styles", "fonts"], function () {
     server: {
       baseDir: [".tmp", "app"],
       routes: {
-        "/bower_components": "bower_components"
+        "/bower_components": "bower_components",
+        "/public": "public"
       }
     }
   });

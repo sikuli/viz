@@ -18,7 +18,7 @@ class TemplateList extends React.Component {
   }
 
   componentDidMount() {
-    return $.getJSON("blobs/templates.json", (templates) => {
+    return $.getJSON("public/blobs/templates.json", (templates) => {
       this.setState({templates: templates});
     }).fail((err) => {
       console.error(err);

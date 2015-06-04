@@ -6,7 +6,7 @@ var PollingDataStore = Reflux.createStore({
   },
 
   onMakeRequest: function() {
-    return $.getJSON("blobs/deptGrades.json")
+    return $.getJSON("public/blobs/deptGrades.json")
       .done((data) => {
         this.trigger(data);
       })
