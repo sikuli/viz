@@ -25,7 +25,8 @@ gulp.task("scripts", function () {
     .pipe(buffer())
     .pipe($.sourcemaps.init({loadMaps: true}))
     .pipe($.sourcemaps.write("./"))
-    .pipe(gulp.dest(".tmp"));
+    .pipe(gulp.dest(".tmp"))
+    .pipe(gulp.dest("dist"));
 });
 
 gulp.task("eslint", function () {
@@ -48,7 +49,8 @@ gulp.task("styles", function () {
       require("autoprefixer-core")({browsers: ["last 1 version"]})
     ]))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(".tmp"));
+    .pipe(gulp.dest(".tmp"))
+    .pipe(gulp.dest("dist"));
 });
 
 gulp.task("html", ["styles", "views", "scripts"], function () {
@@ -65,15 +67,20 @@ gulp.task("html", ["styles", "views", "scripts"], function () {
 });
 
 gulp.task("images", function () {
-  return gulp.src("app/images/**/*")
+  return gulp.src("public/images/**/*")
     .pipe($.cache($.imagemin({
       progressive: true,
       interlaced: true,
-      // don"t remove IDs from SVGs, they are often used
+      // don't remove IDs from SVGs, they are often used
       // as hooks for embedding and styling
       svgoPlugins: [{cleanupIDs: false}]
     })))
-    .pipe(gulp.dest("dist/images"));
+    .pipe(gulp.dest("dist/public/images"));
+});
+
+gulp.task("blobs", function () {
+  return gulp.src("public/blobs/**/*")
+    .pipe(gulp.dest("dist/public/blobs"));
 });
 
 gulp.task("views", function () {
@@ -111,15 +118,14 @@ gulp.task("serve", ["scripts", "views", "styles", "fonts"], function () {
     server: {
       baseDir: [".tmp", "app"],
       routes: {
-        "/bower_components": "bower_components"
+        "/bower_components": "bower_components",
+        "/public": "public"
       }
     }
   });
 
   // reload browser when changes are detected
-  gulp.watch(".tmp/**/*").on("change", reload);
-  gulp.watch(".tmp/**/*").on("added", reload);
-  gulp.watch(".tmp/**/*").on("deleted", reload);
+  gulp.watch("{.tmp,public}/**/*", reload);
 
   // run tasks when changes are detected
   gulp.watch("app/**/*.jade", ["views"].concat(tests));
@@ -142,7 +148,7 @@ gulp.task("wiredep", function () {
 
   gulp.src("app/boilerplate/scripts.jade")
     .pipe(wiredep({
-      exclude: ["bootstrap-sass-official"],
+      exclude: ["bootstrap-sass-official", "modernizr"],
       ignorePath: /^(\.\.\/)*\.\./
     }))
     .pipe(gulp.dest("app/boilerplate"));
@@ -157,7 +163,7 @@ gulp.task("test", ["eslint"], function () {
   gulp.start("mocha");
 });
 
-gulp.task("build", ["eslint", "scripts", "html", "images", "fonts", "extras"], function () {
+gulp.task("build", ["eslint", "scripts", "html", "images", "fonts", "extras", "blobs"], function () {
   return gulp.src("dist/**/*").pipe($.size({title: "build", gzip: true}));
 });
 

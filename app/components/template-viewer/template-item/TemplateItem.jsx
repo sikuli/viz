@@ -1,5 +1,5 @@
-import {changeTemplate} from "./../../../controllers/TemplateController.js";
-import DonutChartComponent from "./../../visualizer/main-viz/templates/DonutChart/DonutChartComponent.jsx";
+import {changeTemplate} from "./../../../controllers/TemplateStore.js";
+import DonutChartComponent from "./../../../templates/DonutChart/DonutChartComponent.jsx";
 
 export default class TemplateItem extends React.Component {
   handleClick() {

@@ -1,9 +1,1 @@
-import "./main-viz/main-viz.jsx";
-
-class Visualizer extends React.Component {
-  render() {
-    return (<div className="visualizer"></div>);
-  }
-}
-
-module.exports = Visualizer;
+import MainViz from "./main-viz/MainViz.jsx";

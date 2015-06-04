@@ -1,7 +1,7 @@
-import DonutChartComponent from "./templates/DonutChart/DonutChartComponent.jsx";
-import NullTemplateComponent from "./templates/NullTemplate/NullTemplateComponent.jsx";
+import DonutChartComponent from "./../../../templates/DonutChart/DonutChartComponent.jsx";
+import NullTemplateComponent from "./../../../templates/NullTemplate/NullTemplateComponent.jsx";
 import PollingDataStore from "./../../../controllers/PollingDataStore.js";
-import {TemplateController} from "./../../../controllers/TemplateController.js";
+import {TemplateStore} from "./../../../controllers/TemplateStore.js";
 
 class MainViz extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class MainViz extends React.Component {
       });
     });
 
-    this.unsubscribeFromTemplates = TemplateController.listen((template) => {
+    this.unsubscribeFromTemplates = TemplateStore.listen((template) => {
       this.setState({
         data: this.state.data,
         template: template

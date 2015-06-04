@@ -1,12 +1,15 @@
 import TemplateItem from "./template-item/TemplateItem.jsx";
 
-class TemplateViewer extends React.Component {
+export default class TemplateViewer extends React.Component {
   render() {
-    return (<div className="template-viewer"></div>);
+    return (
+      <div>
+        <h3>Templates</h3>
+        <TemplateList />
+      </div>
+    );
   }
 }
-
-module.exports = TemplateViewer;
 
 class TemplateList extends React.Component {
   constructor(props) {
@@ -15,17 +18,16 @@ class TemplateList extends React.Component {
   }
 
   componentDidMount() {
-    return $.getJSON("blobs/templates.json", (data) => {
-      this.setState({templates: data});
-    }).fail((error) => {
-      console.error(error);
+    return $.getJSON("public/blobs/templates.json", (templates) => {
+      this.setState({templates: templates});
+    }).fail((err) => {
+      console.error(err);
     });
   }
 
   render() {
     return (
       <div>
-        <h3 className="template-head col-md-8 col-md-offset-4">Templates</h3>
         {
           this.state.templates.map((temp) => {
             return (
@@ -45,4 +47,4 @@ class TemplateList extends React.Component {
   }
 }
 
-React.render(<TemplateList />, document.getElementById("template-container"));
+React.render(<TemplateViewer />, document.getElementById("template-viewer"));

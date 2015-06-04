@@ -1,5 +1,3 @@
-import Header from "./components/header/Header.jsx";
-import Footer from "./components/footer/Footer.jsx";
 import DataViewer from "./components/data-viewer/DataViewer.jsx";
 import TemplateViewer from "./components/template-viewer/TemplateViewer.jsx";
 import Visualizer from "./components/visualizer/Visualizer.jsx";
