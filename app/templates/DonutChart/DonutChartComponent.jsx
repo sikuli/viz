@@ -1,6 +1,6 @@
 import DonutChart from "./DonutChart.js";
 
-class DonutChartComponent extends React.Component {
+export default class DonutChartComponent extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -60,5 +60,3 @@ class DonutChartComponent extends React.Component {
     return {major: major, data: prepareDataForViz(d)};
   }
 }
-
-module.exports = DonutChartComponent;
