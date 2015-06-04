@@ -19,7 +19,8 @@ export default class DonutChartComponent extends React.Component {
 
       this.chart = new DonutChart({
         id: d.major,
-        data: d.data
+        data: d.data,
+        element: "#donut-anchor"
       });
     }
 
@@ -38,7 +39,11 @@ export default class DonutChartComponent extends React.Component {
   };
 
   render() {
-    return <div className="Chart"></div>;
+    return (
+      <div className="Chart">
+        <svg id="donut-anchor" />
+      </div>
+    );
   }
 
   filterData(data) {

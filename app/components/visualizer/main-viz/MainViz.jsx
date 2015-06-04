@@ -1,4 +1,3 @@
-import DonutChartComponent from "./../../../templates/DonutChart/DonutChartComponent.jsx";
 import NullTemplateComponent from "./../../../templates/NullTemplate/NullTemplateComponent.jsx";
 import PollingDataStore from "./../../../controllers/PollingDataStore.js";
 import {TemplateStore} from "./../../../controllers/TemplateStore.js";
@@ -43,7 +42,12 @@ class MainViz extends React.Component {
   }
 
   render() {
-    return <this.state.template data={this.state.data} />;
+    return (
+      // Provide an anchor for templates to bind to.
+      <div id="template-anchor">
+        <this.state.template data={this.state.data} />
+      </div>
+    );
   }
 }
 
