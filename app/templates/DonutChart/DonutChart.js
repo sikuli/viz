@@ -25,7 +25,7 @@ class Configurator {
   }
 }
 
-class DonutChart {
+export default class DonutChart {
   constructor(config) {
     this.config = new Configurator(config).config();
 
@@ -138,5 +138,3 @@ class DonutChart {
       .text(title);
   }
 }
-
-module.exports = DonutChart;
