@@ -1,45 +1,49 @@
 import DonutChart from "./DonutChart.js";
 
-class DonutChartComponent extends React.Component {
+export default class DonutChartComponent extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  plot() {
-    if (!this.chart) {
-      let d = this.filterData(this.props.data);
+  componentDidMount() {
+    // Ensure that we have data
+    // TODO: make this less error prone
+    // Defer rendering until data is ready?
+    let d = this.filterData(this.props.data);
 
-      this.chart = new DonutChart({
-        id: d.major,
-        data: d.data
-      });
-    }
+    this.chart = new DonutChart({
+      id: d.major,
+      data: d.data,
+      element: "#donut-anchor"
+    });
 
-    // Ghetto: but shows working update.
-    // TODO: Remove this loaded logic
-    if (this.loaded) {
-      let d = this.filterData(this.props.data);
+    this.chart.create();
+  }
+
+  componentDidUpdate() {
+    let d = this.filterData(this.props.data);
+
+    if (this.chart) {
       this.chart.update({
         id: d.major,
         data: d.data
       });
-    } else {
-      this.chart.create();
-      this.loaded = true;
     }
-  };
+  }
 
   render() {
-    // Ensure there is actually data to be rendered
-    // TODO: Find cleaner way to ensure there is data to render
-    if (this.props.data.length > 0) {
-      this.plot();
-    }
-
-    return <div className="Chart"></div>;
+    return (
+      <div className="Chart">
+        <svg id="donut-anchor" />
+      </div>
+    );
   }
 
   filterData(data) {
+    if (!this.hasData()) {
+      return {major: "", data: []};
+    }
+
     let d = _.sample(data);
     let major = d._id;
 
@@ -59,6 +63,8 @@ class DonutChartComponent extends React.Component {
 
     return {major: major, data: prepareDataForViz(d)};
   }
-}
 
-module.exports = DonutChartComponent;
+  hasData() {
+    return this.props.data.length > 0;
+  }
+}

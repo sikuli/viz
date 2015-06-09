@@ -1,4 +1,5 @@
 import TemplateItem from "./template-item/TemplateItem.jsx";
+import Templates from "./../../templates/Templates.jsx";
 
 export default class TemplateViewer extends React.Component {
   render() {
@@ -14,15 +15,7 @@ export default class TemplateViewer extends React.Component {
 class TemplateList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {templates: []};
-  }
-
-  componentDidMount() {
-    return $.getJSON("public/blobs/templates.json", (templates) => {
-      this.setState({templates: templates});
-    }).fail((err) => {
-      console.error(err);
-    });
+    this.state = {templates: Templates};
   }
 
   render() {

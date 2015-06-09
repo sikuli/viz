@@ -13,7 +13,7 @@ class Configurator {
         "D": 0.2,
         "F": 0.2
       },
-      element: "#main-viz",
+      element: "#donut-anchor",
       height: 512,
       id: "_id",
       label: "DonutChart",
@@ -25,7 +25,7 @@ class Configurator {
   }
 }
 
-class DonutChart {
+export default class DonutChart {
   constructor(config) {
     this.config = new Configurator(config).config();
 
@@ -138,5 +138,3 @@ class DonutChart {
       .text(title);
   }
 }
-
-module.exports = DonutChart;
